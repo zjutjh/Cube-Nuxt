@@ -1,9 +1,6 @@
 {
   "prettier.enable": false,
-  "eslint.validate": [
-    "scss",
-    "json"
-  ],
+  "eslint.validate": ["scss", "json"],
   "[scss]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
