@@ -1,3 +1,5 @@
 import zjutjh from "@zjutjh/eslint-config";
 
-export default zjutjh();
+export default zjutjh({
+  prettier: true
+});
