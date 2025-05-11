@@ -24,6 +24,7 @@
     "@element-plus/nuxt": "^1.1.2",
     "@zjutjh/eslint-config": "^0.7.0",
     "jiti": "^2.4.2",
+    "sass": "^1.88.0",
     "typescript": "^5.8.3"
   }
 }
