@@ -2,23 +2,38 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   height: 96vh;
 
-  .el-card__body {
+  .content {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 200px;
-    width: 250px;
+    width: 200px;
     gap: 20px;
-    .title {
-      font-size: 30px;
-      color: #333;
-      align-items: center;
+    position: relative;
+    top: -50px;
+    .logo {
+      width: 150px;
+      height: 150px;
+      position: relative;
+      top: 30px;
+      img {
+        object-fit: contain;
+        width: 150px;
+        height: 150px;
+      }
     }
     .button {
       width: 100%;
+      opacity: 0.5;
     }
+  }
+
+  .footer {
+    display: flex;
+    position: absolute;
+    bottom: 5%;
   }
 }
