@@ -1,0 +1,35 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  height: 97vh;
+  padding: 10px;
+  box-sizing: border-box;
+  .top-bar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 10px 0;
+    gap: 10px;
+    border-bottom: 1px solid rgb(230, 230, 230);
+    color: rgba(80, 80, 80, 0.849);
+    .el-input {
+      width: 250px;
+    }
+    .el-button {
+      color: rgba(80, 80, 80, 0.849);
+    }
+    .upload {
+      color: #9aaec7;
+    }
+    .el-switch {
+      position: relative;
+      right: 5px;
+    }
+  }
+  .side-bar {
+    width: 200px;
+    height: 100%;
+    border: 1px solid rgb(230, 230, 230);
+  }
+}
