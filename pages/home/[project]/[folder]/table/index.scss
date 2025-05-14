@@ -1,0 +1,15 @@
+.table {
+  width: 100%;
+  z-index: 0;
+  .preview {
+    max-height: 200px;
+    height: 10px;
+  }
+}
+.el-image-viewer__canvas {
+  position: absolute;
+  z-index: 2009;
+  img {
+    z-index: 2008;
+  }
+}

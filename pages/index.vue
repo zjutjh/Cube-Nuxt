@@ -10,7 +10,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 onMounted(() => {
   if (localStorage.getItem("key")) {
-    router.push("/home");
+    router.push("/home/default/default");
   } else {
     router.push("/login");
   }

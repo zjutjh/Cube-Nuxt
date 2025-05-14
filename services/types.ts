@@ -12,4 +12,5 @@ export type fileList = {
   size: number;
   type: string;
   last_modified: string;
+  url: string;
 };
