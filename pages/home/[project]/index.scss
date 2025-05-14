@@ -1,0 +1,115 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  height: 97vh;
+  box-sizing: border-box;
+  .top-bar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 10px 0;
+    border-bottom: 1px solid rgb(230, 230, 230);
+    color: rgba(80, 80, 80, 0.849);
+    .left-block {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      .el-input {
+        width: 250px;
+        margin-top: 5px;
+      }
+    }
+    .el-image {
+      position: relative;
+      top: 4px;
+      width: 50px;
+    }
+    .el-button {
+      color: rgba(80, 80, 80, 0.849);
+    }
+    .upload {
+      color: #9aaec7;
+    }
+    .el-switch {
+      position: relative;
+      right: 5px;
+    }
+  }
+  .main {
+    display: flex;
+    height: 100%;
+    width: 100%;
+  }
+  .side-bar {
+    display: flex;
+    width: 160px;
+    height: 100%;
+    opacity: 0.8;
+    .project-list {
+      z-index: 1;
+      height: 100%;
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 1px solid rgb(230, 230, 230);
+      .project-name {
+        width: 100%;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 1px solid rgb(211, 211, 211);
+        cursor: pointer;
+        color: rgb(120, 154, 192);
+        background-color: rgb(240, 240, 240);
+        cursor: pointer;
+        &:hover {
+          background-color: rgba(230, 230, 230, 0.781);
+        }
+      }
+    }
+
+    .foler-list {
+      z-index: 1;
+      visibility: hidden;
+      height: 100%;
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 1px solid rgb(230, 230, 230);
+      .folder-name {
+        width: 100%;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 1px solid rgb(230, 230, 230);
+        cursor: pointer;
+        color: rgb(120, 154, 192);
+        background-color: rgb(246, 246, 246);
+        cursor: pointer;
+        &:hover {
+          background-color: rgba(230, 230, 230, 0.781);
+        }
+      }
+    }
+
+    .description {
+      width: 100%;
+      height: 30px;
+      background-color: rgb(240, 242, 245);
+      border-bottom: 1px solid rgb(223, 222, 222);
+      cursor: pointer;
+      .el-icon {
+        font-size: 30px;
+        left: calc(50% - 15px);
+      }
+    }
+  }
+  .main-content {
+    width: calc(100% - 160px);
+  }
+}

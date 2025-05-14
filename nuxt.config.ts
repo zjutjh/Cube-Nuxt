@@ -1,16 +1,20 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  app: {
+    head: {
+      title: "精弘OSS"
+    }
+  },
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
-  modules: ["@nuxt/eslint", "@nuxt/icon", "@element-plus/nuxt"],
+  modules: ["@nuxt/eslint", "@element-plus/nuxt"],
   css: ["element-plus/dist/index.css"],
   vite: {
     server: {
       proxy: {
-        "/ap": {
+        "/api": {
           target: "http://101.126.88.138:8083",
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, "")
+          changeOrigin: true
         }
       }
     }

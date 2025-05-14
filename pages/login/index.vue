@@ -27,6 +27,6 @@ const login = () => {
   }
   localStorage.setItem("key", key.value);
   ElMessage.success("已使用新key");
-  router.push("/home");
+  router.push("/home/default");
 };
 </script>
