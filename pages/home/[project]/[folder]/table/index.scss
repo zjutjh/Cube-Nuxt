@@ -6,10 +6,6 @@
     height: 10px;
   }
 }
-.el-image-viewer__canvas {
-  position: absolute;
-  z-index: 2009;
-  img {
-    z-index: 2008;
-  }
+.el-table__cell {
+  position: static !important;
 }
