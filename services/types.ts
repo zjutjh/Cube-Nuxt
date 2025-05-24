@@ -14,3 +14,11 @@ export type fileList = {
   last_modified: string;
   url: string;
 };
+
+export interface GetBucket {
+  msg: string;
+  code: number;
+  data: {
+    bucket_list: string[];
+  };
+}

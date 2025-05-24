@@ -6,32 +6,28 @@
   <div v-else class="home">
     <div class="side-bar">
       <div class="project-list">
-        <div
-          v-if="!projectRevising"
-          class="description"
-          @click="projectRevising = !projectRevising"
-        >
+        <div class="top-icon">
           <el-icon><House /></el-icon>
-        </div>
-        <div v-else class="function">
-          <el-icon @click="newFoloder('project')"><Plus /></el-icon
-          ><el-icon @click="deleteFolder('project')"><Delete /></el-icon>
         </div>
         <div
           v-for="item in projectList"
-          :key="item.name"
+          :key="item"
           class="project-name"
-          :style="item.name === projectLocation ? { backgroundColor: 'rgb(200, 200, 200)' } : {}"
-          @click="router.push(`/home/${item.name}/default`)"
+          :style="item === projectLocation ? { backgroundColor: 'rgb(200, 200, 200)' } : {}"
+          @click="router.push(`/home/${item}/default`)"
         >
-          <span class="title">{{ item.name }}</span>
+          <span class="title">{{ item }}</span>
         </div>
       </div>
       <div class="foler-list">
-        <div v-if="!folderRevising" class="description" @click="folderRevising = !folderRevising">
+        <div
+          v-if="!folderRevising"
+          class="top-icon top-icon-folder"
+          @click="folderRevising = !folderRevising"
+        >
           <el-icon><Folder /></el-icon>
         </div>
-        <div v-else class="function">
+        <div v-else class="top-icon-function">
           <el-icon @click="newFoloder('folder')"><FolderAdd /></el-icon
           ><el-icon @click="deleteFolder('folder')"><FolderDelete /></el-icon>
         </div>
@@ -85,7 +81,7 @@ import "./index.scss";
 
 import { useQuery } from "@tanstack/vue-query";
 
-import type { GetFolder } from "~/services/types";
+import type { GetBucket, GetFolder } from "~/services/types";
 
 import myTable from "./table/index.vue";
 const router = useRouter();
@@ -102,7 +98,7 @@ const projectLocation = useRoute().params.project;
 const folderLocation = useRoute().params.folder;
 
 const projectList = computed(() => {
-  return projectData.value?.data.file_list;
+  return projectData.value?.data.bucket_list;
 });
 
 const fileList = computed(() => {
@@ -156,10 +152,18 @@ const upload = () => {
   input.click();
 };
 
-/** 改变下refresh就会让useQuery重新获取数据 */
-const refresh = ref(0);
 const getFolder = async (location: string | string[]): Promise<GetFolder> => {
-  const res = await fetch(`/api/files?location=${location}`, {
+  const res = await fetch(`/api/files?bucket=${projectLocation}&location=${location}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Key: localStorage.getItem("key") || ""
+    }
+  });
+  return res.json();
+};
+const getBucket = async (): Promise<GetBucket> => {
+  const res = await fetch(`/api/buckets`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -169,15 +173,15 @@ const getFolder = async (location: string | string[]): Promise<GetFolder> => {
   return res.json();
 };
 
-const { data: projectData, isError: isProjectError } = useQuery<GetFolder>({
-  queryKey: ["project", refresh],
-  queryFn: () => getFolder("/")
+const { data: projectData, isError: isProjectError } = useQuery<GetBucket>({
+  queryKey: ["project"],
+  queryFn: () => getBucket()
 });
 
 const { data: fileData } = useQuery<GetFolder>({
-  queryKey: ["file", projectLocation, refresh],
+  queryKey: ["file", projectLocation],
   queryFn: () => {
-    return getFolder(projectLocation);
+    return getFolder("/");
   }
 });
 
@@ -200,13 +204,13 @@ const newFoloder = (type: "project" | "folder") => {
             target: type === "project" ? value : `/${projectLocation}/${value}`
           })
         });
-        refresh.value++;
       }
     })
     .catch(() => {
       ElMessage.error("取消");
     });
 };
+
 const deleteFolder = (type: "project" | "folder") => {
   ElMessageBox.confirm(`确认删除${type === "project" ? "项目" : "文件夹"}？`, {
     confirmButtonText: "确认",
@@ -222,7 +226,6 @@ const deleteFolder = (type: "project" | "folder") => {
         target: type === "project" ? projectLocation : `/${projectLocation}/${folderLocation}`
       })
     });
-    refresh.value++;
   });
 };
 </script>
