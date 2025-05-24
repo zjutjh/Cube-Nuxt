@@ -13,7 +13,7 @@ export default defineNuxtConfig({
     server: {
       proxy: {
         "/api": {
-          target: "http://101.126.88.138:8083",
+          target: process.env.VITE_API_URL,
           changeOrigin: true
         }
       }
