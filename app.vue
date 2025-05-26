@@ -3,6 +3,8 @@
 </template>
 
 <script setup lang="ts">
+import "./assets/global.scss";
+
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import { VueQueryPlugin } from "@tanstack/vue-query";
 const app = useNuxtApp().vueApp;
