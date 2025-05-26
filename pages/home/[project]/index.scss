@@ -2,6 +2,7 @@
   display: flex;
   height: 100%;
   box-sizing: border-box;
+
   .top-bar {
     display: flex;
     align-items: center;
@@ -155,6 +156,7 @@
   flex-direction: column;
   align-items: center;
   height: 97vh;
+
   .error-text {
     position: absolute;
     top: 42%;

@@ -14,7 +14,7 @@
       />
       <el-button
         size="large"
-        :disabled="!apiKey.length"
+        :disabled="apiKey.length <= 0"
         :class="styles.loginButton"
         type="primary"
         @click="handleConfirmAPIKey"
@@ -31,6 +31,10 @@ import LogoImage from "@/assets/logo.png";
 import { useApiKey } from "@/composables/use-api-key";
 
 import styles from "./index.module.scss";
+
+definePageMeta({
+  layout: false
+});
 
 const apiKey = useApiKey();
 const router = useRouter();

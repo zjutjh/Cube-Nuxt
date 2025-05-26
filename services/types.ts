@@ -1,13 +1,4 @@
-/** get folder接口的data */
-export interface GetFolder {
-  msg: string;
-  code: number;
-  data: {
-    file_list: fileList[];
-  };
-}
-
-export type fileList = {
+export type FileMeta = {
   name: string;
   size: number;
   type: string;
@@ -15,10 +6,10 @@ export type fileList = {
   url: string;
 };
 
-export interface GetBucket {
-  msg: string;
-  code: number;
-  data: {
-    bucket_list: string[];
-  };
+export interface GetFolderContentResp {
+  file_list: FileMeta[];
+}
+
+export interface GetBucketResp {
+  bucket_list: string[];
 }

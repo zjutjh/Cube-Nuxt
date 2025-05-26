@@ -34,8 +34,8 @@ import "./index.scss";
 
 import { useQuery } from "@tanstack/vue-query";
 
-import { getFolder } from "~/services/service";
-import type { GetFolder } from "~/services/types";
+import { getFolderOrFile } from "~/services/service";
+import type { GetFolderContentResp } from "~/services/types";
 const projectLocation = useRoute().params.project;
 const folderLocation = useRoute().params.folder;
 
@@ -43,10 +43,10 @@ const tableData = computed(() => {
   return fileData.value?.data?.file_list ?? [];
 });
 
-const { data: fileData } = useQuery<GetFolder>({
+const { data: fileData } = useQuery<GetFolderContentResp>({
   queryKey: ["file", projectLocation, folderLocation],
   queryFn: () => {
-    return getFolder(projectLocation, folderLocation);
+    return getFolderOrFile(projectLocation, folderLocation);
   }
 });
 </script>
