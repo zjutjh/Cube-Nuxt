@@ -1,32 +1,41 @@
 <template>
-  <div class="login">
-    <div class="content">
-      <div class="logo">
-        <img src="/logo.png" alt="logo" />
-      </div>
-      <el-input v-model="key" placeholder="请输入key" type="password" show-password />
-      <el-button class="button" type="info" @click="login()">登录</el-button>
+  <div :class="styles.login">
+    <div :class="styles.logo">
+      <img :src="LogoImage" alt="logo" :draggable="false" />
     </div>
-    <div class="footer">
-      <a href="https://github.com/zjutjh/JH-OSS-Nuxt" target="_blank">前端</a>
-      |
-      <a href="https://github.com/zjutjh/JH-OSS" target="_blank">后端</a>
-    </div>
+    <section :class="styles.form">
+      <el-input
+        v-model="apiKey"
+        size="large"
+        placeholder="请输入 API Key"
+        type="password"
+        show-password
+        clearable
+      />
+      <el-button
+        size="large"
+        :disabled="!apiKey.length"
+        :class="styles.loginButton"
+        type="primary"
+        @click="handleConfirmAPIKey"
+      >
+        登录
+      </el-button>
+    </section>
   </div>
 </template>
 <script setup lang="ts">
-import "./index.scss";
+import { useRouter } from "vue-router";
 
-const key = ref("");
+import LogoImage from "@/assets/logo.png";
+import { useApiKey } from "@/composables/use-api-key";
 
+import styles from "./index.module.scss";
+
+const apiKey = useApiKey();
 const router = useRouter();
-const login = () => {
-  if (!key.value) {
-    ElMessage.error("请输入key");
-    return;
-  }
-  localStorage.setItem("key", key.value);
-  ElMessage.success("已使用新key");
+
+const handleConfirmAPIKey = () => {
   router.push("/home/default/default");
 };
 </script>
