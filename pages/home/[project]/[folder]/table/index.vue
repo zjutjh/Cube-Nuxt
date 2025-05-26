@@ -34,28 +34,19 @@ import "./index.scss";
 
 import { useQuery } from "@tanstack/vue-query";
 
+import { getFolder } from "~/services/service";
 import type { GetFolder } from "~/services/types";
-
 const projectLocation = useRoute().params.project;
 const folderLocation = useRoute().params.folder;
 
 const tableData = computed(() => {
   return fileData.value?.data?.file_list ?? [];
 });
-const getFile = async (location: string | string[]): Promise<GetFolder> => {
-  const res = await fetch(`/api/files?location=${location}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Key: localStorage.getItem("key") || ""
-    }
-  });
-  return res.json();
-};
+
 const { data: fileData } = useQuery<GetFolder>({
   queryKey: ["file", projectLocation, folderLocation],
   queryFn: () => {
-    return getFile(`/${projectLocation}/${folderLocation}`);
+    return getFolder(projectLocation, folderLocation);
   }
 });
 </script>
