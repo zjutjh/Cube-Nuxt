@@ -14,6 +14,7 @@
     <file-column
       v-if="folderList"
       :list="folderList"
+      :selected-name="folderName"
       :base-path="`/home/${bucketName}`"
       :class-name="styles.fileColumn"
     >
