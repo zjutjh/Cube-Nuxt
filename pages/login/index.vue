@@ -40,6 +40,6 @@ const apiKey = useApiKey();
 const router = useRouter();
 
 const handleConfirmAPIKey = () => {
-  router.push("/home/default/default");
+  router.push("/home");
 };
 </script>

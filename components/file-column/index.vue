@@ -1,5 +1,5 @@
 <template>
-  <div :class="styles.fileColumn">
+  <div :class="clsx(styles.fileColumn, className)">
     <div :class="styles.topIcon">
       <el-icon>
         <slot name="icon" />
@@ -21,14 +21,17 @@
 </template>
 
 <script lang="ts" setup>
+import clsx from "clsx";
+
 import type { FileMeta } from "~/services/types";
 
 import styles from "./index.module.scss";
 
 defineProps<{
-  list: FileMeta[];
+  list?: FileMeta[];
   selectedName?: string;
   basePath: string;
+  className?: string;
 }>();
 
 defineSlots<{

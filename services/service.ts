@@ -1,4 +1,4 @@
-import type { GetBucketResp, GetFolderContentResp } from "./types";
+import type { GetBucketResp, GetFileListReq, GetFolderContentResp } from "./types";
 
 export const getBucket = () => {
   return request<GetBucketResp>({
@@ -7,10 +7,10 @@ export const getBucket = () => {
   });
 };
 
-export const getFolderOrFile = async (
-  bucket: string,
-  location: string
-): Promise<GetFolderContentResp> => {
+export const getFolderOrFile = async ({
+  bucket,
+  location
+}: GetFileListReq): Promise<GetFolderContentResp> => {
   return request({
     url: "/api/files",
     method: "GET",

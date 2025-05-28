@@ -9,22 +9,11 @@
 </template>
 
 <script lang="ts" setup>
-import { useQuery } from "@tanstack/vue-query";
 import { useRoute } from "vue-router";
-
-import { getBucket } from "~/services/service";
 
 import styles from "./index.module.scss";
 
 const bucketName = useRoute().params.project as string;
 
-const { data: bucketList } = useQuery({
-  queryKey: ["bucketList"],
-  queryFn: getBucket,
-  select: (res) =>
-    res.bucket_list.map((item) => ({
-      name: item,
-      type: "folder"
-    }))
-});
+const { data: bucketList } = useBucketList();
 </script>
