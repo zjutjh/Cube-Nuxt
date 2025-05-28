@@ -7,7 +7,7 @@
       column-key="last_modified"
       show-overflow-tooltip
     />
-    <el-table-column prop="url" label="预览">
+    <el-table-column label="预览">
       <template #default="scope">
         <el-image
           :class="styles.imagePreview"
@@ -20,14 +20,23 @@
       </template>
     </el-table-column>
     <el-table-column prop="type" label="文件类型" />
-    <el-table-column prop="size" label="文件大小">
+    <el-table-column label="文件大小">
       <template #default="scope">
         {{ bytesToSizeString(scope.row.size) }}
       </template>
     </el-table-column>
-    <el-table-column label="最后修改">
+    <el-table-column label="最后修改" width="200">
       <template #default="scope">
         {{ dayjs(scope.row.last_modified).format("YYYY-MM-DD HH:mm:ss") }}
+      </template>
+    </el-table-column>
+    <el-table-column label="操作">
+      <template #default="scope">
+        <el-button
+          type="text"
+          :icon="ElIconLink"
+          @click="copy(getFileRealUrl(scope.row.object_key))"
+        />
       </template>
     </el-table-column>
   </el-table>
@@ -35,6 +44,7 @@
 
 <script setup lang="ts">
 import { useQuery } from "@tanstack/vue-query";
+import { useClipboard } from "@vueuse/core";
 import dayjs from "dayjs";
 
 import { getFolderOrFile } from "~/services/service";
@@ -45,6 +55,8 @@ const props = defineProps<{
   bucket: string;
   folder: string;
 }>();
+
+const { copy } = useClipboard();
 
 // http://remote/api/file?bucket=forum&object_key=abcccc/088afb14-3a15-11f0-b300-00163e7ed273.jpg
 const getFileRealUrl = (objectKey: string) => {
