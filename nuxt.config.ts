@@ -7,8 +7,8 @@ export default defineNuxtConfig({
   },
   compatibilityDate: "2024-11-01",
   devtools: { enabled: false },
-  modules: ["@nuxt/eslint", "@element-plus/nuxt"],
-  css: ["element-plus/dist/index.css"],
+  modules: ["@nuxt/eslint", "@element-plus/nuxt", "@nuxt/fonts"],
+  css: ["~/assets/css/main.css"],
   vite: {
     server: {
       proxy: {

@@ -1,0 +1,13 @@
+.home {
+  height: 100%;
+  display: flex;
+}
+
+.tableWrapper {
+  flex: auto;
+  overflow: hidden;
+}
+
+.fileColumn {
+  flex: none;
+}

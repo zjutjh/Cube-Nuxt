@@ -1,0 +1,33 @@
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+
+  .form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 320px;
+    gap: 20px;
+    position: relative;
+  }
+
+  .logo {
+    width: 150px;
+    height: 150px;
+    position: relative;
+
+    img {
+      object-fit: contain;
+      width: 150px;
+      height: 150px;
+    }
+  }
+
+  .loginButton {
+    width: 100%;
+  }
+}
