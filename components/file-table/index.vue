@@ -60,10 +60,10 @@ const props = defineProps<{
   bucket: string;
   folder: string;
 }>();
-
+const { refreshQuery } = useRefreshQuery();
 const { copy } = useClipboard();
 
-const handleCopyFileUrl = (objectKey: string) => async () => {
+const handleCopyFileUrl = async (objectKey: string) => {
   await copy(getFileRealUrl(objectKey));
   ElMessage.success("已复制Url至剪贴板");
 };
@@ -76,7 +76,7 @@ const getFileRealUrl = (objectKey: string) => {
   url.searchParams.append("object_key", objectKey);
   return url.href;
 };
-const deleteSelectedFile = (bucket: string, objectKey: string) => async () => {
+const deleteSelectedFile = async (bucket: string, objectKey: string) => {
   try {
     await ElMessageBox.confirm("确定删除该文件?", "提示", {
       confirmButtonText: "确定",
