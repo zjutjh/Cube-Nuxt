@@ -13,7 +13,7 @@ export function useFolderList({ bucketName }: UseFolderListOptions) {
       getFolderOrFile({
         bucket: queryKey[1],
         // 前端控制在 bucket 下只有一级 folder
-        location: "/"
+        location: ""
       }),
     select: (res) => res.file_list.filter((item) => item.type === "dir")
   });

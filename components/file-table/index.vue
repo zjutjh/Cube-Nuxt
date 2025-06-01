@@ -32,7 +32,11 @@
     </el-table-column>
     <el-table-column label="操作">
       <template #default="scope">
-        <el-button type="text" :icon="ElIconLink" @click="useCopyFileUrl(scope.row.object_key)" />
+        <el-button
+          type="text"
+          :icon="ElIconLink"
+          @click="handleCopyFileUrl(scope.row.object_key)"
+        />
         <el-button
           type="text"
           :icon="ElIconDelete"
@@ -59,7 +63,7 @@ const props = defineProps<{
 
 const { copy } = useClipboard();
 
-const useCopyFileUrl = (objectKey: string) => async () => {
+const handleCopyFileUrl = (objectKey: string) => async () => {
   await copy(getFileRealUrl(objectKey));
   ElMessage.success("已复制Url至剪贴板");
 };
@@ -73,15 +77,25 @@ const getFileRealUrl = (objectKey: string) => {
   return url.href;
 };
 const deleteSelectedFile = (bucket: string, objectKey: string) => async () => {
-  await ElMessageBox.confirm("确定删除该文件?", "提示", {
-    confirmButtonText: "确定",
-    cancelButtonText: "取消",
-    type: "warning"
-  });
-  deleteFile(bucket, objectKey).then(() => {
+  try {
+    await ElMessageBox.confirm("确定删除该文件?", "提示", {
+      confirmButtonText: "确定",
+      cancelButtonText: "取消",
+      type: "warning"
+    });
+  } catch {
+    return;
+  }
+
+  try {
+    await deleteFile(bucket, objectKey);
     ElMessage.success("删除成功");
     refreshQuery(["fileList", "folderList"]);
-  });
+  } catch (e) {
+    if (e instanceof Error) {
+      ElMessage.error(e.message);
+    }
+  }
 };
 
 const { data: fileList } = useQuery({
