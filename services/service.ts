@@ -1,13 +1,13 @@
 import type { GetBucketResp, GetFileListReq, GetFolderContentResp } from "./types";
 
-export const getBucket = () => {
+const getBucket = () => {
   return request<GetBucketResp>({
     url: "/api/buckets",
     method: "GET"
   });
 };
 
-export const getFolderOrFile = async ({
+const getFolderOrFile = async ({
   bucket,
   location
 }: GetFileListReq): Promise<GetFolderContentResp> => {
@@ -18,11 +18,11 @@ export const getFolderOrFile = async ({
   });
 };
 
-export const uploadFile = async (
+const uploadFile = async (
   files: FileList,
   bucket: string,
   location: string,
-  convet_webp: boolean,
+  convert_webp: boolean,
   use_uuid: boolean
 ) => {
   const formData = new FormData();
@@ -31,7 +31,7 @@ export const uploadFile = async (
   }
   formData.append("bucket", `${bucket}`);
   formData.append("location", `${location}`);
-  formData.append("convet_webp", String(convet_webp));
+  formData.append("convet_webp", String(convert_webp));
   formData.append("use_uuid", String(use_uuid));
 
   return request({
@@ -41,7 +41,7 @@ export const uploadFile = async (
   });
 };
 
-export const deleteFile = async (bucket: string | string[], location: string | string[]) => {
+const deleteFile = async (bucket: string, location: string) => {
   const formData = new FormData();
   formData.append("bucket", `${bucket}`);
   formData.append("object_key", `${location}`);
@@ -52,3 +52,5 @@ export const deleteFile = async (bucket: string | string[], location: string | s
     data: formData
   });
 };
+
+export { deleteFile, getBucket, getFolderOrFile, uploadFile };

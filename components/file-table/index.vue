@@ -35,7 +35,16 @@
         <el-button
           type="text"
           :icon="ElIconLink"
-          @click="copy(getFileRealUrl(scope.row.object_key))"
+          @click="
+            copy(getFileRealUrl(scope.row.object_key)).then(() => {
+              ElMessage.success('已复制Url至剪贴板');
+            })
+          "
+        />
+        <el-button
+          type="text"
+          :icon="ElIconDelete"
+          @click="deleteSelectedFile(props.bucket, scope.row.object_key)"
         />
       </template>
     </el-table-column>
@@ -47,7 +56,7 @@ import { useQuery } from "@tanstack/vue-query";
 import { useClipboard } from "@vueuse/core";
 import dayjs from "dayjs";
 
-import { getFolderOrFile } from "~/services/service";
+import { deleteFile, getFolderOrFile } from "~/services/service";
 
 import styles from "./index.module.scss";
 
@@ -66,9 +75,21 @@ const getFileRealUrl = (objectKey: string) => {
   url.searchParams.append("object_key", objectKey);
   return url.href;
 };
+const deleteSelectedFile = (bucket: string, objectKey: string) => {
+  ElMessageBox.confirm("确定删除该文件?", "提示", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning"
+  }).then(() => {
+    deleteFile(bucket, objectKey).then(() => {
+      ElMessage.success("删除成功");
+      refreshQuery(["fileList", "folderList"]);
+    });
+  });
+};
 
 const { data: fileList } = useQuery({
-  queryKey: ["file-list", props.bucket, props.folder] as const,
+  queryKey: ["fileList", props.bucket, props.folder] as const,
   queryFn: ({ queryKey }) =>
     getFolderOrFile({
       bucket: queryKey[1],
