@@ -32,15 +32,7 @@
     </el-table-column>
     <el-table-column label="操作">
       <template #default="scope">
-        <el-button
-          type="text"
-          :icon="ElIconLink"
-          @click="
-            copy(getFileRealUrl(scope.row.object_key)).then(() => {
-              ElMessage.success('已复制Url至剪贴板');
-            })
-          "
-        />
+        <el-button type="text" :icon="ElIconLink" @click="useCopyFileUrl(scope.row.object_key)" />
         <el-button
           type="text"
           :icon="ElIconDelete"
@@ -67,6 +59,11 @@ const props = defineProps<{
 
 const { copy } = useClipboard();
 
+const useCopyFileUrl = (objectKey: string) => async () => {
+  await copy(getFileRealUrl(objectKey));
+  ElMessage.success("已复制Url至剪贴板");
+};
+
 // http://remote/api/file?bucket=forum&object_key=abcccc/088afb14-3a15-11f0-b300-00163e7ed273.jpg
 const getFileRealUrl = (objectKey: string) => {
   const url = new URL(import.meta.env.VITE_API_URL);
@@ -75,16 +72,15 @@ const getFileRealUrl = (objectKey: string) => {
   url.searchParams.append("object_key", objectKey);
   return url.href;
 };
-const deleteSelectedFile = (bucket: string, objectKey: string) => {
-  ElMessageBox.confirm("确定删除该文件?", "提示", {
+const deleteSelectedFile = (bucket: string, objectKey: string) => async () => {
+  await ElMessageBox.confirm("确定删除该文件?", "提示", {
     confirmButtonText: "确定",
     cancelButtonText: "取消",
     type: "warning"
-  }).then(() => {
-    deleteFile(bucket, objectKey).then(() => {
-      ElMessage.success("删除成功");
-      refreshQuery(["fileList", "folderList"]);
-    });
+  });
+  deleteFile(bucket, objectKey).then(() => {
+    ElMessage.success("删除成功");
+    refreshQuery(["fileList", "folderList"]);
   });
 };
 
