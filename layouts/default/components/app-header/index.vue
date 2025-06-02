@@ -25,7 +25,7 @@
         </div>
       </div>
       <el-upload
-        v-if="uploadBucket.length > 0 && uploadFolder.length > 0"
+        v-if="uploadBucket && uploadFolder"
         drag
         multiple
         :on-success="handleSuccess"
