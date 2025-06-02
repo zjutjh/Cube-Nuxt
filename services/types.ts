@@ -5,7 +5,7 @@ export type FileMeta = {
   type?: FileType;
   size?: number;
   last_modified?: string;
-  url?: string;
+  object_key?: string;
 };
 
 export interface GetFolderContentResp {

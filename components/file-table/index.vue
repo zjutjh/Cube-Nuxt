@@ -39,6 +39,11 @@
         />
         <el-button
           type="text"
+          :icon="ElIconDownload"
+          @click="downloadFile(scope.row.object_key, scope.row.name)"
+        />
+        <el-button
+          type="text"
           :icon="ElIconDelete"
           @click="deleteSelectedFile(props.bucket, scope.row.object_key)"
         />
@@ -76,6 +81,25 @@ const getFileRealUrl = (objectKey: string) => {
   url.searchParams.append("object_key", objectKey);
   return url.href;
 };
+
+const downloadFile = async (objectKey: string, fileName: string) => {
+  const response = await fetch(getFileRealUrl(objectKey));
+  const blob = await response.blob();
+
+  const link = document.createElement("a");
+  const objectUrl = URL.createObjectURL(blob);
+
+  link.href = objectUrl;
+  link.download = fileName;
+  link.style.display = "none";
+
+  document.body.appendChild(link);
+  link.click();
+
+  document.body.removeChild(link);
+  URL.revokeObjectURL(objectUrl);
+};
+
 const deleteSelectedFile = async (bucket: string, objectKey: string) => {
   try {
     await ElMessageBox.confirm("确定删除该文件?", "提示", {
