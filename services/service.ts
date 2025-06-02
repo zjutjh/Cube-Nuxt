@@ -1,5 +1,4 @@
 import type { GetBucketResp, GetFileListReq, GetFolderContentResp } from "./types";
-
 const getBucket = () => {
   return request<GetBucketResp>({
     url: "/api/buckets",
@@ -18,23 +17,8 @@ const getFolderOrFile = async ({
   });
 };
 
-const uploadFile = async (
-  files: FileList,
-  bucket: string,
-  location: string,
-  convert_webp: boolean,
-  use_uuid: boolean
-) => {
-  const formData = new FormData();
-  for (const file of files) {
-    formData.append("files", file);
-  }
-  formData.append("bucket", `${bucket}`);
-  formData.append("location", `${location}`);
-  formData.append("convet_webp", String(convert_webp));
-  formData.append("use_uuid", String(use_uuid));
-
-  return request({
+const uploadFile = async (formData: FormData) => {
+  return await request({
     url: "/api/upload",
     method: "POST",
     data: formData

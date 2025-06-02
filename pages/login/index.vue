@@ -16,7 +16,7 @@
         size="large"
         :disabled="apiKey.length <= 0"
         :class="styles.loginButton"
-        type="primary"
+        type="info"
         @click="handleConfirmAPIKey"
       >
         登录
