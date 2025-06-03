@@ -1,25 +1,24 @@
 import { useQueryClient } from "@tanstack/vue-query";
 
-type QuerySelection = "all" | "fileList" | "folderList" | "bucketList";
+interface RefreshFileTreeOptions {
+  bucketList?: boolean;
+  fileList?: boolean;
+  folderList?: boolean;
+}
 
 export function useRefreshFileTree() {
   const queryClient = useQueryClient();
+  /** { bucketList: true, fileList: true } 类似这样填 不填默认不触发*/
+  const refreshFileTree = (key: RefreshFileTreeOptions) => {
+    const promises: Promise<unknown>[] = [];
 
-  /**  可选刷新: "all" | "fileList" | "folderList" | "bucketList" 如果想只刷新两个 就类似["fileList", "folderList"] */
-  const refreshFileTree = (key: QuerySelection | QuerySelection[]) => {
-    if (Array.isArray(key)) {
-      return Promise.all(key.map((k) => queryClient.invalidateQueries({ queryKey: [k] })));
-    }
+    Object.entries(key).forEach(([queryKey, isRefreshed]) => {
+      if (isRefreshed) {
+        promises.push(queryClient.invalidateQueries({ queryKey: [queryKey] }));
+      }
+    });
 
-    if (key === "all") {
-      return Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["folderList"] }),
-        queryClient.invalidateQueries({ queryKey: ["bucketList"] }),
-        queryClient.invalidateQueries({ queryKey: ["fileList"] })
-      ]);
-    }
-
-    return queryClient.invalidateQueries({ queryKey: [key] });
+    return Promise.all(promises);
   };
 
   return { refreshFileTree };

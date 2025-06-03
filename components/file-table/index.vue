@@ -33,17 +33,20 @@
     <el-table-column label="操作">
       <template #default="scope">
         <el-button
-          type="text"
+          link
+          type="primary"
           :icon="ElIconLink"
           @click="handleCopyFileUrl(scope.row.object_key)"
         />
         <el-button
-          type="text"
+          link
+          type="primary"
           :icon="ElIconDownload"
-          @click="downloadFile(scope.row.object_key, scope.row.name)"
+          @click="downloadFileByObjectKey(scope.row.object_key, scope.row.name)"
         />
         <el-button
-          type="text"
+          type="danger"
+          link
           :icon="ElIconDelete"
           @click="deleteSelectedFile(props.bucket, scope.row.object_key)"
         />
@@ -81,25 +84,10 @@ const getFileRealUrl = (objectKey: string) => {
   url.searchParams.append("object_key", objectKey);
   return url.href;
 };
-
-const downloadFile = async (objectKey: string, fileName: string) => {
-  const response = await fetch(getFileRealUrl(objectKey));
-  const blob = await response.blob();
-
-  const link = document.createElement("a");
-  const objectUrl = URL.createObjectURL(blob);
-
-  link.href = objectUrl;
-  link.download = fileName;
-  link.style.display = "none";
-
-  document.body.appendChild(link);
-  link.click();
-
-  document.body.removeChild(link);
-  URL.revokeObjectURL(objectUrl);
+const downloadFileByObjectKey = (objectKey: string, fileName: string) => {
+  const url = getFileRealUrl(objectKey);
+  downloadFile(url, fileName);
 };
-
 const deleteSelectedFile = async (bucket: string, objectKey: string) => {
   try {
     await ElMessageBox.confirm("确定删除该文件?", "提示", {
@@ -114,7 +102,7 @@ const deleteSelectedFile = async (bucket: string, objectKey: string) => {
   try {
     await deleteFile(bucket, objectKey);
     ElMessage.success("删除成功");
-    refreshFileTree(["fileList", "folderList"]);
+    refreshFileTree({ folderList: true, fileList: true });
   } catch (e: unknown) {
     if (e instanceof Error) {
       ElMessage.error(e.message);

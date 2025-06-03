@@ -9,7 +9,7 @@
       <nuxt-link v-for="item in list" :key="item.name" :href="`${basePath}/${item.name}`">
         <div
           :class="styles.label"
-          :style="selectedName === item.name ? { color: `rgb(0, 50, 120)` } : {}"
+          :style="selectedName === item.name ? { color: `var(--el-color-primary-dark-2)` } : {}"
         >
           {{ item.name }}
         </div>

@@ -17,18 +17,18 @@
 .uploadArea {
   .uploadIcon {
     font-size: 100px;
-    color: rgba(51, 48, 48, 0.395);
+    color: var(--el-text-color-placeholder);
   }
   .uploadText {
     font-size: 14px;
     margin: 5px 0 20px 0;
     > span {
-      color: rgba(42, 160, 239, 0.788);
+      color: var(--el-color-primary);
     }
   }
   .uploadTip {
     position: absolute;
-    color: rgba(100, 103, 105, 0.708);
+    color: var(--el-text-color-disabled);
     text-align: end;
     font-size: 12px;
     right: 20px;

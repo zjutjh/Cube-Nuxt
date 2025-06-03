@@ -3,9 +3,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px 16px;
-  border-bottom: 1px solid rgb(230, 230, 230);
-  color: rgba(80, 80, 80, 0.85);
-  background-color: rgba(243, 245, 247, 0.5);
+  border-bottom: 1px solid var(--el-border-color-light);
+  background-color: var(--el-fill-color-light);
 
   .actions {
     display: flex;
