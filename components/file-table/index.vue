@@ -65,7 +65,7 @@ const props = defineProps<{
   bucket: string;
   folder: string;
 }>();
-const { refreshQuery } = useRefreshQuery();
+const { refreshFileTree } = useRefreshFileTree();
 const { copy } = useClipboard();
 
 const handleCopyFileUrl = async (objectKey: string) => {
@@ -114,8 +114,8 @@ const deleteSelectedFile = async (bucket: string, objectKey: string) => {
   try {
     await deleteFile(bucket, objectKey);
     ElMessage.success("删除成功");
-    refreshQuery(["fileList", "folderList"]);
-  } catch (e) {
+    refreshFileTree(["fileList", "folderList"]);
+  } catch (e: unknown) {
     if (e instanceof Error) {
       ElMessage.error(e.message);
     }

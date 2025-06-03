@@ -13,39 +13,3 @@
     gap: 8px;
   }
 }
-
-.uploadSetting {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: 10px;
-  .uploadSettingDiv {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 10px;
-    .settingInput {
-      width: 200px;
-    }
-  }
-}
-.uploadArea {
-  .uploadIcon {
-    font-size: 100px;
-    color: rgba(51, 48, 48, 0.395);
-  }
-  .uploadText {
-    font-size: 14px;
-    > span {
-      color: rgba(42, 160, 239, 0.788);
-    }
-    .uploadTip {
-      position: absolute;
-      color: rgba(100, 103, 105, 0.708);
-      font-size: 12px;
-      right: 20px;
-      bottom: 20px;
-    }
-  }
-}

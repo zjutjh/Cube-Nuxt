@@ -12,11 +12,4 @@
 import styles from "./index.module.scss";
 
 const { data: bucketList } = useBucketList();
-const { refreshQuery } = useRefreshQuery();
-onMounted(async () => {
-  await refreshQuery(["bucketList"]);
-  if (!bucketList.value) {
-    ElMessage.warning("key错误,请重新尝试");
-  }
-});
 </script>

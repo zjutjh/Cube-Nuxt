@@ -17,15 +17,15 @@ const getFolderOrFile = async ({
   });
 };
 
-const uploadFile = async (formData: FormData) => {
-  return await request({
+const uploadFile = (formData: FormData) => {
+  return request({
     url: "/api/upload",
     method: "POST",
     data: formData
   });
 };
 
-const deleteFile = async (bucket: string, location: string) => {
+const deleteFile = (bucket: string, location: string) => {
   const formData = new FormData();
   formData.append("bucket", `${bucket}`);
   formData.append("object_key", `${location}`);
