@@ -25,21 +25,33 @@
   </div>
 </template>
 <script setup lang="ts">
+import { useQueryClient } from "@tanstack/vue-query";
 import { useRouter } from "vue-router";
 
 import LogoImage from "@/assets/logo.png";
 import { useApiKey } from "@/composables/use-api-key";
+import { getBucket } from "~/services/service";
 
 import styles from "./index.module.scss";
-
 definePageMeta({
   layout: false
 });
 
 const apiKey = useApiKey();
 const router = useRouter();
-
-const handleConfirmAPIKey = () => {
-  router.push("/home");
+const queryClient = useQueryClient();
+const handleConfirmAPIKey = async () => {
+  try {
+    await queryClient.fetchQuery({
+      queryKey: ["bucketList"],
+      queryFn: getBucket
+    });
+    ElMessage.success("key正确");
+    router.push("/home");
+  } catch (e: unknown) {
+    if (e instanceof Error) {
+      ElMessage.error(e.message);
+    }
+  }
 };
 </script>
