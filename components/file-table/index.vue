@@ -86,6 +86,7 @@ const getFileRealUrl = (objectKey: string) => {
 };
 const downloadFileByObjectKey = (objectKey: string, fileName: string) => {
   const url = getFileRealUrl(objectKey);
+  ElMessage.success(`正在下载 ${fileName}`);
   downloadFile(url, fileName);
 };
 const deleteSelectedFile = async (bucket: string, objectKey: string) => {

@@ -50,8 +50,8 @@ const isContainName = ref(true);
 /** 为 true 时尝试转换为webp格式，若转换失败则报错 */
 const isConvertWebp = ref(true);
 
-const uploadBucket = ref();
-const uploadFolder = ref();
+const uploadBucket = ref<string>("");
+const uploadFolder = ref<string>("");
 
 const handleSuccess = () => {
   ElMessage.success(`上传成功`);
@@ -70,7 +70,7 @@ const elAutoUpload = async (options: UploadRequestOptions) => {
   formData.append("use_uuid", String(!isContainName.value));
   try {
     await uploadFile(formData);
-    refreshFileTree(["fileList", "folderList"]);
+    refreshFileTree({ folderList: true, fileList: true });
   } catch (e: unknown) {
     if (e instanceof Error) {
       ElMessage.error(e.message);
