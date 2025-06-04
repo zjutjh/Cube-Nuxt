@@ -1,8 +1,15 @@
 <template>
-  <div class="home">
-    <h1>首页</h1>
-  </div>
+  <section :class="styles.home">
+    <file-column v-if="bucketList" :list="bucketList" base-path="/home">
+      <template #icon>
+        <el-icon-folder />
+      </template>
+    </file-column>
+  </section>
 </template>
-<script setup lang="ts">
 
+<script lang="ts" setup>
+import styles from "./index.module.scss";
+
+const { data: bucketList } = useBucketList();
 </script>

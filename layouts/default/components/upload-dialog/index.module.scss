@@ -1,0 +1,37 @@
+.uploadSetting {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+  .uploadSettingDiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+    .settingInput {
+      width: 200px;
+    }
+  }
+}
+.uploadArea {
+  .uploadIcon {
+    font-size: 100px;
+    color: var(--el-text-color-placeholder);
+  }
+  .uploadText {
+    font-size: 14px;
+    margin: 5px 0 20px 0;
+    > span {
+      color: var(--el-color-primary);
+    }
+  }
+  .uploadTip {
+    position: absolute;
+    color: var(--el-text-color-disabled);
+    text-align: end;
+    font-size: 12px;
+    right: 20px;
+    bottom: 20px;
+  }
+}
