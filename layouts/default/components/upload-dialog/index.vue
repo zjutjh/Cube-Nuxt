@@ -30,7 +30,10 @@
         将文件拖到此处，或
         <span>点击上传</span>
       </div>
-      <span :class="styles.uploadTip">支持多文件上传<br />不存在的文件夹会自动创建</span>
+      <div :class="styles.uploadTip">
+        <div>支持多文件上传</div>
+        <div>不存在的文件夹会自动创建</div>
+      </div>
     </el-upload>
   </el-dialog>
 </template>

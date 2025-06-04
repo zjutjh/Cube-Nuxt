@@ -12,8 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import UploadDialog from "~/layouts/default/components/upload-dialog/index.vue";
-
+import UploadDialog from "../upload-dialog/index.vue";
 import styles from "./index.module.scss";
 const router = useRouter();
 const isUploadDialogVisible = ref(false);
