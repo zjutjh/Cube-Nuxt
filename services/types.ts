@@ -1,7 +1,7 @@
 type FileType = "dir" | "image";
 
 export type FileMeta = {
-  name?: string;
+  name: string;
   type?: FileType;
   size?: number;
   last_modified?: string;
