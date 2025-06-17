@@ -25,11 +25,7 @@ const props = defineProps<{
 }>();
 
 const uploadDialogKey = computed(() => {
-  let key = "";
-  const bucket = props.bucket || "";
-  const folder = props.folder || "";
-  key = `${bucket}-${folder}`;
-  return key;
+  return `${props.bucket}-${props.folder}`;
 });
 
 const router = useRouter();
