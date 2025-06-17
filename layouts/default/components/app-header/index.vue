@@ -26,8 +26,9 @@ const props = defineProps<{
 
 const uploadDialogKey = computed(() => {
   let key = "";
-  if (props.bucket) key += props.bucket;
-  if (props.folder) key += props.folder;
+  const bucket = props.bucket || "";
+  const folder = props.folder || "";
+  key = `${bucket}-${folder}`;
   return key;
 });
 
