@@ -7,7 +7,12 @@
       >
       <el-button plain @click="router.push('/login')">返回登录</el-button>
     </div>
-    <upload-dialog v-model="isUploadDialogVisible" :bucket="props.bucket" :folder="props.folder" />
+    <upload-dialog
+      :key="uploadDialogKey"
+      v-model:visible="isUploadDialogVisible"
+      :bucket="props.bucket"
+      :folder="props.folder"
+    />
   </header>
 </template>
 
@@ -18,6 +23,13 @@ const props = defineProps<{
   bucket?: string;
   folder?: string;
 }>();
+
+const uploadDialogKey = computed(() => {
+  let key = "";
+  if (props.bucket) key += props.bucket;
+  if (props.folder) key += props.folder;
+  return key;
+});
 
 const router = useRouter();
 const isUploadDialogVisible = ref(false);

@@ -66,7 +66,7 @@ import styles from "./index.module.scss";
 const isContainName = ref(true);
 /** 为 true 时尝试转换为webp格式，若转换失败则报错 */
 const isConvertWebp = ref(true);
-const uploadDialogVisible = defineModel<boolean>();
+const uploadDialogVisible = defineModel<boolean>("visible");
 
 const props = defineProps<{
   bucket?: string;
@@ -77,15 +77,6 @@ const { refreshFileTree } = useRefreshFileTree();
 
 const uploadBucket = ref<string>(props.bucket || "");
 const uploadFolder = ref<string>(props.folder || "");
-
-/** 使默认选择的上传目标永远是当前bucket/folder */
-watch(
-  () => [props.bucket, props.folder],
-  ([newBucket, newFolder]) => {
-    uploadBucket.value = newBucket || "";
-    uploadFolder.value = newFolder || "";
-  }
-);
 
 const { data: bucketList } = useBucketList();
 const { data: folderList } = useFolderList({ bucketName: uploadBucket });
