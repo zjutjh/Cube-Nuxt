@@ -1,5 +1,7 @@
 import axios, { AxiosError, type Method } from "axios";
 
+import { toCamelCase } from "./camelize";
+
 export interface CommonRespWrap<T> {
   code: number;
   msg: string;
@@ -48,5 +50,6 @@ export async function request<R>(opts: RequestOptions): Promise<R> {
       : undefined
   });
 
+  body.data = toCamelCase(body.data);
   return (body as CommonRespWrap<R>).data;
 }

@@ -15,6 +15,6 @@ export function useFolderList({ bucketName }: UseFolderListOptions) {
         // 前端控制在 bucket 下只有一级 folder
         location: ""
       }),
-    select: (res) => res.file_list.filter((item) => item.type === "dir")
+    select: (res) => res.fileList.filter((item) => item.type === "dir")
   });
 }

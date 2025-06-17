@@ -8,7 +8,7 @@ export function useBucketList() {
     queryKey: ["bucketList"],
     queryFn: getBucket,
     select: (res) =>
-      res.bucket_list
+      res.bucketList
         .map<FileMeta>((item) => ({
           name: item,
           type: "dir"

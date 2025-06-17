@@ -12,7 +12,7 @@
         <el-select v-model="uploadBucket" :class="styles.settingSelect">
           <el-option
             v-for="item in bucketList"
-            :key="item.object_key"
+            :key="item.objectKey"
             :label="item.name"
             :value="item.name"
           />
@@ -22,7 +22,7 @@
         <el-select v-model="uploadFolder" filterable allow-create :class="styles.settingSelect">
           <el-option
             v-for="item in folderList"
-            :key="item.object_key"
+            :key="item.objectKey"
             :label="item.name"
             :value="item.name"
           />
