@@ -9,7 +9,7 @@
     <div :class="styles.uploadSetting">
       <div :class="styles.uploadSettingDiv">
         <span>bucket</span>
-        <el-select v-model="uploadBucket" :class="styles.settingInput">
+        <el-select v-model="uploadBucket" :class="styles.settingSelect">
           <el-option
             v-for="item in bucketList"
             :key="item.object_key"
@@ -19,7 +19,7 @@
         </el-select>
 
         <span>folder</span>
-        <el-select v-model="uploadFolder" filterable allow-create :class="styles.settingInput">
+        <el-select v-model="uploadFolder" filterable allow-create :class="styles.settingSelect">
           <el-option
             v-for="item in folderList"
             :key="item.object_key"
@@ -66,7 +66,7 @@ import styles from "./index.module.scss";
 const isContainName = ref(true);
 /** 为 true 时尝试转换为webp格式，若转换失败则报错 */
 const isConvertWebp = ref(true);
-const uploadDialogVisible = defineModel<boolean>("uploadDialogVisible");
+const uploadDialogVisible = defineModel<boolean>();
 
 const props = defineProps<{
   bucket?: string;
