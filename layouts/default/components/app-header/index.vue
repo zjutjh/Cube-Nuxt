@@ -7,13 +7,29 @@
       >
       <el-button plain @click="router.push('/login')">返回登录</el-button>
     </div>
-    <upload-dialog v-model:upload-dialog-visible="isUploadDialogVisible" />
+    <upload-dialog
+      :key="uploadDialogKey"
+      v-model:visible="isUploadDialogVisible"
+      :bucket="props.bucket"
+      :folder="props.folder"
+    />
   </header>
 </template>
 
 <script setup lang="ts">
 import UploadDialog from "../upload-dialog/index.vue";
 import styles from "./index.module.scss";
+const props = defineProps<{
+  bucket?: string;
+  folder?: string;
+}>();
+
+const uploadDialogKey = computed(() => {
+  const bucket = props.bucket || "";
+  const folder = props.folder || "";
+  return `${bucket}-${folder}`;
+});
+
 const router = useRouter();
 const isUploadDialogVisible = ref(false);
 </script>

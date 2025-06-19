@@ -4,15 +4,15 @@
       prop="name"
       label="文件名"
       width="320"
-      column-key="last_modified"
+      column-key="lastModified"
       show-overflow-tooltip
     />
     <el-table-column label="预览">
       <template #default="scope">
         <el-image
           :class="styles.imagePreview"
-          :src="getFileRealUrl(scope.row.object_key)"
-          :preview-src-list="[getFileRealUrl(scope.row.object_key)]"
+          :src="getFileRealUrl(scope.row.objectKey)"
+          :preview-src-list="[getFileRealUrl(scope.row.objectKey)]"
           preview-teleported
           hide-on-click-modal
           fit="cover"
@@ -27,7 +27,7 @@
     </el-table-column>
     <el-table-column label="最后修改" width="200">
       <template #default="scope">
-        {{ dayjs(scope.row.last_modified).format("YYYY-MM-DD HH:mm:ss") }}
+        {{ dayjs(scope.row.lastModified).format("YYYY-MM-DD HH:mm:ss") }}
       </template>
     </el-table-column>
     <el-table-column label="操作">
@@ -36,19 +36,19 @@
           link
           type="primary"
           :icon="ElIconLink"
-          @click="handleCopyFileUrl(scope.row.object_key)"
+          @click="handleCopyFileUrl(scope.row.objectKey)"
         />
         <el-button
           link
           type="primary"
           :icon="ElIconDownload"
-          @click="downloadFileByObjectKey(scope.row.object_key, scope.row.name)"
+          @click="downloadFileByObjectKey(scope.row.objectKey, scope.row.name)"
         />
         <el-button
           type="danger"
           link
           :icon="ElIconDelete"
-          @click="deleteSelectedFile(props.bucket, scope.row.object_key)"
+          @click="deleteSelectedFile(props.bucket, scope.row.objectKey)"
         />
       </template>
     </el-table-column>
@@ -118,6 +118,6 @@ const { data: fileList } = useQuery({
       bucket: queryKey[1],
       location: queryKey[2]
     }),
-  select: (res) => res.file_list
+  select: (res) => res.fileList
 });
 </script>

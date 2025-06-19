@@ -1,19 +1,19 @@
 type FileType = "dir" | "image";
 
 export type FileMeta = {
-  name?: string;
+  name: string;
   type?: FileType;
   size?: number;
-  last_modified?: string;
-  object_key?: string;
+  lastModified?: string;
+  objectKey?: string;
 };
 
 export interface GetFolderContentResp {
-  file_list: FileMeta[];
+  fileList: FileMeta[];
 }
 
 export interface GetBucketResp {
-  bucket_list: string[];
+  bucketList: string[];
 }
 
 export interface GetFileListReq {

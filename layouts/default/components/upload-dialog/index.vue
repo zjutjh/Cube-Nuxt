@@ -8,9 +8,25 @@
   >
     <div :class="styles.uploadSetting">
       <div :class="styles.uploadSettingDiv">
-        <span>bucket</span> <el-input v-model="uploadBucket" :class="styles.settingInput" />
+        <span>bucket</span>
+        <el-select v-model="uploadBucket" :class="styles.settingSelect">
+          <el-option
+            v-for="item in bucketList"
+            :key="item.objectKey"
+            :label="item.name"
+            :value="item.name"
+          />
+        </el-select>
 
-        <span>folder</span> <el-input v-model="uploadFolder" :class="styles.settingInput" />
+        <span>folder</span>
+        <el-select v-model="uploadFolder" filterable allow-create :class="styles.settingSelect">
+          <el-option
+            v-for="item in folderList"
+            :key="item.objectKey"
+            :label="item.name"
+            :value="item.name"
+          />
+        </el-select>
         <span> 保持文件名 </span> <el-switch v-model="isContainName"></el-switch>
 
         <span> 转为webp </span> <el-switch v-model="isConvertWebp"></el-switch>
@@ -32,7 +48,8 @@
       </div>
       <div :class="styles.uploadTip">
         <div>支持多文件上传</div>
-        <div>不存在的文件夹会自动创建</div>
+        <div>不存在的folder会自动创建</div>
+        <div>不允许自主创建bucket,有需要请联系后端</div>
       </div>
     </el-upload>
   </el-dialog>
@@ -44,17 +61,25 @@ import { useRefreshFileTree } from "~/composables/use-refresh-file-tree";
 import { uploadFile } from "~/services/service";
 
 import styles from "./index.module.scss";
-const { refreshFileTree } = useRefreshFileTree();
-const uploadDialogVisible = defineModel<boolean>("uploadDialogVisible");
 
 /** 为 true 时不改变原有文件名，否则使用 UUID 作为文件名 */
 const isContainName = ref(true);
-
 /** 为 true 时尝试转换为webp格式，若转换失败则报错 */
 const isConvertWebp = ref(true);
+const uploadDialogVisible = defineModel<boolean>("visible");
 
-const uploadBucket = ref<string>("");
-const uploadFolder = ref<string>("");
+const props = defineProps<{
+  bucket?: string;
+  folder?: string;
+}>();
+
+const { refreshFileTree } = useRefreshFileTree();
+
+const uploadBucket = ref<string>(props.bucket || "");
+const uploadFolder = ref<string>(props.folder || "");
+
+const { data: bucketList } = useBucketList();
+const { data: folderList } = useFolderList({ bucketName: uploadBucket });
 
 const handleSuccess = () => {
   ElMessage.success(`上传成功`);
