@@ -12,7 +12,7 @@
         <el-image
           :class="styles.imagePreview"
           :src="getFileRealUrl(scope.row.objectKey)"
-          :preview-src-list="[getFileRealUrl(scope.row.objectKey)]"
+          :preview-src-list="[getFileUrlWithApi(scope.row.objectKey)]"
           preview-teleported
           hide-on-click-modal
           fit="cover"
@@ -80,6 +80,13 @@ const handleCopyFileUrl = async (objectKey: string) => {
 const getFileRealUrl = (objectKey: string) => {
   const url = new URL(import.meta.env.VITE_API_URL);
   url.href = `${url.href}api/file`;
+  url.searchParams.append("bucket", props.bucket);
+  url.searchParams.append("object_key", objectKey);
+  return url.href;
+};
+/** 含有/api的url 使得能够被nitro拦截 从而避免在挂载vercel时读取并升级为https协议 */
+const getFileUrlWithApi = (objectKey: string) => {
+  const url = new URL("/api/file", location.origin);
   url.searchParams.append("bucket", props.bucket);
   url.searchParams.append("object_key", objectKey);
   return url.href;
