@@ -90,7 +90,7 @@ const handleError = () => {
 /** 为了适配elment-plus的upload组件的自动上传功能 特调的函数 */
 const elAutoUpload = async (options: UploadRequestOptions) => {
   const formData = new FormData();
-  formData.append("files", options.file);
+  formData.append("file", options.file);
   formData.append("bucket", uploadBucket.value);
   formData.append("location", uploadFolder.value);
   formData.append("convert_webp", String(isConvertWebp.value));
