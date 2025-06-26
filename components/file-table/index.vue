@@ -11,7 +11,7 @@
       <template #default="scope">
         <el-image
           :class="styles.imagePreview"
-          :src="getFileRealUrl(scope.row.objectKey)"
+          :src="getFileUrlWithApi(scope.row.objectKey)"
           :preview-src-list="[getFileUrlWithApi(scope.row.objectKey)]"
           preview-teleported
           hide-on-click-modal
@@ -92,7 +92,7 @@ const getFileUrlWithApi = (objectKey: string) => {
   return url.href;
 };
 const downloadFileByObjectKey = (objectKey: string, fileName: string) => {
-  const url = getFileRealUrl(objectKey);
+  const url = getFileUrlWithApi(objectKey);
   ElMessage.success(`正在下载 ${fileName}`);
   downloadFile(url, fileName);
 };
