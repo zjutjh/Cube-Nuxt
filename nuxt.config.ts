@@ -5,16 +5,18 @@ export default defineNuxtConfig({
       title: "Cube"
     }
   },
-  nitro: {
-    handlers: [
-      {
-        route: "/api/**",
-        handler: "~/server/api/proxy.handler.ts"
-      }
-    ]
-  },
   compatibilityDate: "2024-11-01",
   devtools: { enabled: false },
   modules: ["@nuxt/eslint", "@element-plus/nuxt", "@nuxt/fonts"],
-  css: ["~/assets/css/main.css"]
+  css: ["~/assets/css/main.css"],
+  vite: {
+    server: {
+      proxy: {
+        "/api": {
+          target: process.env.VITE_API_URL,
+          changeOrigin: true
+        }
+      }
+    }
+  }
 });
